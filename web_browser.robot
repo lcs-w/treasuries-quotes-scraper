@@ -6,7 +6,6 @@ Library    ${EXECDIR}/datetime_coverter.py
  
 *** Variables ***
 ${url}    https://www.wsj.com/market-data/bonds/treasuries
-${date_loactor}    css:span.WSJBase--card__timestamp--3F2HxyAE
 
 *** Test Cases ***
 0. get_quotes
