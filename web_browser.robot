@@ -1,0 +1,24 @@
+*** Settings ***
+Library    Browser
+Library    String
+Library    OperatingSystem
+Library    ${EXECDIR}/datetime_coverter.py
+ 
+*** Variables ***
+${url}    https://www.wsj.com/market-data/bonds/treasuries
+${date_loactor}    css:span.WSJBase--card__timestamp--3F2HxyAE
+
+*** Test Cases ***
+0. get_quotes
+    [Tags]    scraper
+    New Browser    headless=False
+    New Context
+    New Page    url=${url}
+    ${table}=    Get Text    xpath=//table[1]  # Assuming it's the first table on the page
+    ${last_update}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/div/div/div[2]/div/div/span     
+    # copied from inspect moded (Copy XPath)
+    ${last_update}=    datetime_coverter.to_datetime_str    ${last_update}
+    Create File    ${EXECDIR}/treasuries_${last_update}.txt    ${table}
+    Close Browser
+    
+    
