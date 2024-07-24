@@ -10,5 +10,5 @@ Robot Framework
 Robot Framework Browser  
 Rabot Frame Language Server extension in VS Code  
 
-Update: 2024/07/24
+Update: 2024/07/24  
 WSJ endpoints are found. Quotes can be requests through HTML directly.
