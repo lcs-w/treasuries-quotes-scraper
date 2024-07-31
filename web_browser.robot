@@ -9,6 +9,7 @@ Library    ${CURDIR}/datetime_coverter.py
  
 *** Variables ***
 ${url}    https://www.wsj.com/market-data/bonds/treasuries
+${output dir}    ${EXECDIR}/data
 
 *** Test Cases ***
 0. get_quotes
@@ -20,7 +21,10 @@ ${url}    https://www.wsj.com/market-data/bonds/treasuries
     ${last_update}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/div/div/div[2]/div/div/span     
     # copied from inspect moded (Copy XPath)
     ${last_update}=    datetime_coverter.to_datetime_str    ${last_update}
-    Create File    ${EXECDIR}/data//treasuries_${last_update}.txt    ${table}
+    Create File    ${output dir}/treasuries_${last_update}.txt    ${table}
+
+    ${timestamp}    Get Time    result_format=%Y-%m-%d %H:%M:%S
+    Log To Console    ${timestamp} ${output dir}/treasuries_${last_update}.txt generated.
     Close Browser
     
     
